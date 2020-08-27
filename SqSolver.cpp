@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int SqSolver(double a1, double b1, double c1, double *x1, double *x2) {
+int SqSolver(double a1, double b1, double c1, double* x1, double* x2) {
                                                                       if (a1 == 0) {
                                                                                     if (b1 == 0) {
                                                                                                   if (c1 == 0) {
@@ -12,7 +12,7 @@ int SqSolver(double a1, double b1, double c1, double *x1, double *x2) {
                                                                                                        };
                                                                                                  }
                                                                                      else {
-                                                                                           x1 = -c1/b1;
+                                                                                           &x1 = -c1/b1;
                                                                                            return(1);
                                                                                           };
                                                                                    }
@@ -22,12 +22,12 @@ int SqSolver(double a1, double b1, double c1, double *x1, double *x2) {
                                                                                        return (0);
                                                                                       }
                                                                            else if (d = 0) {
-                                                                                          x1 =(-b1 + sqrt(d))/2/a1;
+                                                                                          &x1 =(-b1 + sqrt(d))/2/a1;
                                                                                           return(1);
                                                                                          }
                                                                            else {
-                                                                                 x1 = (-b1 + sqrt(d))/2/a1;
-                                                                                 x2 = (-b1 - sqrt(d))/2/a1;
+                                                                                 &x1 = (-b1 + sqrt(d))/2/a1;
+                                                                                 &x2 = (-b1 - sqrt(d))/2/a1;
                                                                                  return(2);
                                                                                 }
                                                                           }
@@ -40,7 +40,7 @@ int main()
     printf("Enter coefficients a, b and c\n");
     double a, b, c, x1, x2;
     scanf("%lf %lf %lf", &a, &b, &c);
-    int NumRoots = SqSolver(a, b, c,*x1,*x2);
+    int NumRoots = SqSolver(a, b, c,&x1,&x2);
     switch (NumRoots){
                       case 0: printf("No Roots");
                               break;
