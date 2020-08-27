@@ -12,7 +12,7 @@ int SqSolver(double a1, double b1, double c1, double* x1, double* x2) {
                                                                                                        };
                                                                                                  }
                                                                                      else {
-                                                                                           &x1 = -c1/b1;
+                                                                                           *x1 = -c1/b1;
                                                                                            return(1);
                                                                                           };
                                                                                    }
@@ -21,13 +21,13 @@ int SqSolver(double a1, double b1, double c1, double* x1, double* x2) {
                                                                            if (d < 0) {
                                                                                        return (0);
                                                                                       }
-                                                                           else if (d = 0) {
-                                                                                          &x1 =(-b1 + sqrt(d))/2/a1;
+                                                                           else if (d == 0) {
+                                                                                          *x1 =(-b1 + sqrt(d))/2/a1;
                                                                                           return(1);
                                                                                          }
                                                                            else {
-                                                                                 &x1 = (-b1 + sqrt(d))/2/a1;
-                                                                                 &x2 = (-b1 - sqrt(d))/2/a1;
+                                                                                 *x1 = (-b1 + sqrt(d))/2/a1;
+                                                                                 *x2 = (-b1 - sqrt(d))/2/a1;
                                                                                  return(2);
                                                                                 }
                                                                           }
