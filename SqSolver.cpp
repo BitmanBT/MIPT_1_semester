@@ -14,6 +14,8 @@ double Root1(double a, double b, double d);
 
 double Root2(double a, double b, double d);
 
+void Test_SqSolver();
+
 //-----------------------------------------------------------------------------
 
 int main()
@@ -128,6 +130,41 @@ double Root1(double a, double b, double d) {
 double Root2(double a, double b, double d) {
     double x2 = (-b - sqrt(d))/2/a;
     return x2;
+    }
+
+//-----------------------------------------------------------------------------
+
+void Test_SqSolver()
+    {
+     int x1, x2;
+
+     double val_a = 0, val_b = 0, val_c = 0;
+     int res = SqSolver(val_a, val_b, val_c, &x1, &x2);
+     int exp = Infinite;
+
+     #define DO_TEST \
+         if (res == exp) {printf("Test on line %d OK\n", __LINE__);} \
+         else            {printf("Test on line %d FAILED: SqSolver(%g, %g, %g) == %d, should be %d\n", __LINE__, val_a, val_b, val_c, res, exp);}
+
+     val_a = 0, val_b = 0, val_c = 1;
+     res = SqSolver(val_a, val_b, val_c, &x1, &x2);
+     exp = 0;
+
+     DO_TEST
+
+     val_a = 0, val_b = 1, val_c = 1;
+     res = SqSolver(val_a, val_b, val_c, &x1, &x2);
+     exp = 1;
+
+     DO_TEST
+
+     val_a = 4, val_b = 7, val_c = 2;
+     res = SqSolver(val_a, val_b, val_c, &x1, &x2);
+     exp = 2;
+
+     DO_TEST
+
+     #undef DO_TEST
     }
 
 
