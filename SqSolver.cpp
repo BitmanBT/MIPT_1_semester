@@ -42,13 +42,13 @@ int main()
 //-----------------------------------------------------------------------------
 
 /*!
-  Функция, которая решает квадратное уравнение
-  \param[in] a Коэффициент квадратного трехчлена
-  \param[in] b Коэффициент квадратного трехчлена
-  \param[in] c Коэффициент квадратного трехчлена
-  \param[out] x1 Указатель на переменную для хранения первого корня
-  \param[out] x2 Указатель на переменную для хранения второго корня
-  \return Количество корней
+  Function that solves a quadratic equation
+  \param[in] a Square trinomial coefficient
+  \param[in] b Square trinomial coefficient
+  \param[in] c Square trinomial coefficient
+  \param[out] x1 Pointer to a variable to store the first root
+  \param[out] x2 Pointer to a variable to store the first root
+  \return Number of roots
 */
 
 int SqSolver(double a, double b, double c, double* x1, double* x2) {
@@ -88,11 +88,11 @@ int SqSolver(double a, double b, double c, double* x1, double* x2) {
 //-----------------------------------------------------------------------------
 
 /*!
-  Функция, которая находит дискриминант
-  \param[in] a Коэффициент квадратного трехчлена
-  \param[in] b Коэффициент квадратного трехчлена
-  \param[in] c Коэффициент квадратного трехчлена
-  \return Дискриминант
+  Function that finds the discriminant
+  \param[in] a Square trinomial coefficient
+  \param[in] b Square trinomial coefficient
+  \param[in] c Square trinomial coefficient
+  \return Discriminant
 */
 
 double Discriminant(double a, double b, double c) {
@@ -103,11 +103,11 @@ double Discriminant(double a, double b, double c) {
 //-----------------------------------------------------------------------------
 
 /*!
-  Функция, которая находит первый (или единственный) корень квадратного трехчлена при наличии такового
-  \param[in] a Коэффициент квадратного трехчлена
-  \param[in] b Коэффициент квадратного трехчлена
-  \param[in] d Дискриминант
-  \return Сам корень
+  A function that finds the first (or only) root of a square trinomial, if it exists
+  \param[in] a Square trinomial coefficient
+  \param[in] b Square trinomial coefficient
+  \param[in] d Discriminant
+  \return Root
 */
 
 double Root1(double a, double b, double d) {
@@ -118,11 +118,11 @@ double Root1(double a, double b, double d) {
 //-----------------------------------------------------------------------------
 
 /*!
-  Функция, которая находит второй корень квадратного трехчлена при наличии такового
-  \param[in] a Коэффициент квадратного трехчлена
-  \param[in] b Коэффициент квадратного трехчлена
-  \param[in] d Дискриминант
-  \return Сам корень
+  A function that finds the second root of a square trinomial, if it exists
+  \param[in] a Square trinomial coefficient
+  \param[in] b Square trinomial coefficient
+  \param[in] d Discriminant
+  \return Root
 */
 
 double Root2(double a, double b, double d) {
