@@ -1,37 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 
-int SqSolver(double a1, double b1, double c1, double* x1, double* x2) {
-                                                                      if (a1 == 0) {
-                                                                                    if (b1 == 0) {
-                                                                                                  if (c1 == 0) {
-                                                                                                                return(3);
-                                                                                                               }
-                                                                                                  else {
-                                                                                                        return(0);
-                                                                                                       };
-                                                                                                 }
-                                                                                     else {
-                                                                                           *x1 = -c1/b1;
-                                                                                           return(1);
-                                                                                          };
-                                                                                   }
-                                                                     else {
-                                                                           double d = b1*b1 - 4*a1*c1;
-                                                                           if (d < 0) {
-                                                                                       return (0);
-                                                                                      }
-                                                                           else if (d == 0) {
-                                                                                          *x1 =(-b1 + sqrt(d))/2/a1;
-                                                                                          return(1);
-                                                                                         }
-                                                                           else {
-                                                                                 *x1 = (-b1 + sqrt(d))/2/a1;
-                                                                                 *x2 = (-b1 - sqrt(d))/2/a1;
-                                                                                 return(2);
-                                                                                }
-                                                                          }
-                                                                     }
+int SqSolver(double a, double b, double c, double* x1, double* x2);
+
+double Discriminant(double a, double b, double c);
+
+//-----------------------------------------------------------------------------
 
 int main()
    {
@@ -52,3 +26,44 @@ int main()
                               break;
                      }
    }
+
+//-----------------------------------------------------------------------------
+
+
+int SqSolver(double a, double b, double c, double* x1, double* x2) {
+    if (a == 0) {
+                  if (b == 0) {
+                                if (c == 0) {
+                                              return(3);
+                                              }
+                                else {
+                                      return(0);
+                                      };
+                                }
+                  else {
+                        *x1 = -c/b;
+                        return(1);
+                        };
+                  }
+    else {
+          double d = Discriminant(double a, double b, double c);
+          if (d < 0) {
+                      return (0);
+                      }
+          else if (d == 0) {
+                            *x1 =(-b + sqrt(d))/2/a;
+                            return(1);
+                            }
+          else {
+                *x1 = (-b + sqrt(d))/2/a;
+                *x2 = (-b - sqrt(d))/2/a;
+                return(2);
+                }
+          }
+    }
+double Discriminant(double a, double b, double c) {
+    double d = b*b-4*a*c;
+    return d;
+    }
+
+
