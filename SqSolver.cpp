@@ -16,6 +16,12 @@ double Root2(double a, double b, double d);
 
 void Test_SqSolver();
 
+void Test_Discriminant();
+
+void Test_Root1();
+
+void Test_Root2();
+
 //-----------------------------------------------------------------------------
 
 int main()
@@ -24,6 +30,10 @@ int main()
            "Made by Ivan Gainullin, 2020\n");
     printf("Enter coefficients a, b and c\n");
     double a, b, c, x1, x2;
+    Test_SqSolver();
+    Test_Discriminant();
+    Test_Root1();
+    Test_Root2();
     scanf("%lf %lf %lf", &a, &b, &c);
     int NumRoots = SqSolver(a, b, c,&x1,&x2);
     switch (NumRoots){
@@ -136,15 +146,17 @@ double Root2(double a, double b, double d) {
 
 void Test_SqSolver()
     {
-     int x1, x2;
+     double x1, x2;
 
      double val_a = 0, val_b = 0, val_c = 0;
      int res = SqSolver(val_a, val_b, val_c, &x1, &x2);
      int exp = Infinite;
 
      #define DO_TEST \
-         if (res == exp) {printf("Test on line %d OK\n", __LINE__);} \
-         else            {printf("Test on line %d FAILED: SqSolver(%g, %g, %g) == %d, should be %d\n", __LINE__, val_a, val_b, val_c, res, exp);}
+         if (res == exp) {printf("SqSolver Test on line %d OK\n", __LINE__);} \
+         else            {printf("SqSolver Test on line %d FAILED: SqSolver(%g, %g, %g) == %d, should be %d\n", __LINE__, val_a, val_b, val_c, res, exp);}
+
+     DO_TEST
 
      val_a = 0, val_b = 0, val_c = 1;
      res = SqSolver(val_a, val_b, val_c, &x1, &x2);
@@ -165,6 +177,42 @@ void Test_SqSolver()
      DO_TEST
 
      #undef DO_TEST
+    }
+
+//-----------------------------------------------------------------------------
+
+void Test_Discriminant()
+    {
+     double val_a = 2, val_b = 5, val_c = 2;
+     double res = Discriminant(val_a, val_b, val_c);
+     double exp = 9;
+
+     if (fabs(exp-res) < EPS) {printf("Discriminant Test on line %d OK\n", __LINE__);}
+     else                     {printf("Discriminant Test on line %d FAILED: Discriminant(%g, %g, %g) == %g, should be %g\n", __LINE__, val_a, val_b, val_c, res, exp);}
+    }
+
+//-----------------------------------------------------------------------------
+
+void Test_Root1()
+    {
+     double val_a = 2, val_b = 1, val_d = 9;
+     double res = Root1(val_a, val_b, val_d);
+     double exp = 0.5;
+
+     if (fabs(exp-res) < EPS) {printf("Root1 Test on line %d OK\n", __LINE__);}
+     else                     {printf("Root1 Test on line %d FAILED: Root1(%g, %g, %g) == %g, should be %g\n", __LINE__, val_a, val_b, val_d, res, exp);}
+    }
+
+//-----------------------------------------------------------------------------
+
+void Test_Root2()
+    {
+    double val_a = 2, val_b = 1, val_d = 9;
+     double res = Root2(val_a, val_b, val_d);
+     double exp = -1;
+
+     if (fabs(exp-res) < EPS) {printf("Root2 Test on line %d OK\n", __LINE__);}
+     else                     {printf("Root2 Test on line %d FAILED: Root2(%g, %g, %g) == %g, should be %g\n", __LINE__, val_a, val_b, val_d, res, exp);}
     }
 
 
