@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
-#define enter_SqSolver(val_a, val_b, val_c, res, exp) ( \
-    if (res == exp) {printf("SqSolver Test on line %d OK\n", __LINE__);} \
-    else printf("SqSolver Test on line %d FAILED: SqSolver(%g, %g, %g) == %d, should be %d\n", __LINE__, val_a, val_b, val_c, res, exp););
+#define enter_SqSolver(val_a, val_b, val_c, exp) ( \
+    if (SqSolver(val_a, val_b, val_c) == exp) {printf("SqSolver Test on line %d OK\n", __LINE__);} \
+    else {printf("SqSolver Test on line %d FAILED: SqSolver(%g, %g, %g) == %d, should be %d\n", __LINE__, val_a, val_b, val_c, res, exp);};);
 
 const int Infinite = 3;
 
@@ -156,25 +156,25 @@ void Test_SqSolver()
      int res = SqSolver(val_a, val_b, val_c, &x1, &x2);
      int exp = Infinite;
 
-     enter_SqSolver;
+     enter_SqSolver(val_a, val_b, val_c, exp);
 
      val_a = 0, val_b = 0, val_c = 1;
      res = SqSolver(val_a, val_b, val_c, &x1, &x2);
      exp = 0;
 
-     enter_SqSolver;
+     enter_SqSolver(val_a, val_b, val_c, exp);
 
      val_a = 0, val_b = 1, val_c = 1;
      res = SqSolver(val_a, val_b, val_c, &x1, &x2);
      exp = 1;
 
-     enter_SqSolver;
+     enter_SqSolver(val_a, val_b, val_c, exp);
 
      val_a = 4, val_b = 7, val_c = 2;
      res = SqSolver(val_a, val_b, val_c, &x1, &x2);
      exp = 2;
 
-     enter_SqSolver;
+     enter_SqSolver(val_a, val_b, val_c, exp);
     }
 
 //-----------------------------------------------------------------------------
