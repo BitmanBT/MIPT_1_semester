@@ -27,6 +27,16 @@ int main()
 
      int num_root = Lin_Solver(a, b);
 
+     switch (num_root)
+         {
+          case 0:   printf("\nAn infinite number of solutions");
+                    break;
+          case 1:   printf("\nSolution is x = %lf", -b/a);
+                    break;
+          case Inf: printf("\nAn infinite number of solutions");
+                    break;
+         }
+
      return 0;
     }
 
@@ -34,25 +44,19 @@ int main()
 
     int Lin_Solver(double a, double b)
         {
-         assert(a);
-         assert(b);
-
          if (fabs(a) < EPS)
           {
            if (fabs(b) < EPS)
                {
-                printf("\nAn infinite number of solutions");
                 return Inf;
                 }
            else
                {
-                printf("\nNo solutions");
                 return 0;
                 };
           }
       else
           {
-           printf("\nSolution is x = %lf", -b/a);
            return 1;
            };
          }
@@ -69,7 +73,8 @@ int main()
                              { \
                               printf("Lin_Solver Test on line %d OK\n", __LINE__); \
                               } \
-                         else {printf("Lin_Solver Test on line %d FAILED: res = %d, should be %d\n" __LINE__, res, exp);};
+                         else {printf("Lin_Solver Test on line %d FAILED: res = %d, should be %d\n", __LINE__, res, exp);};
+
 
          DO_TEST
 
