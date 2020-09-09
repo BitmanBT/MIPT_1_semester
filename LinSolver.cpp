@@ -24,6 +24,7 @@ int main()
      while (a != a)
          {
           printf("\nThere are some problems. Try to enter coefficient a one more time: ");
+          fflush(stdin);
           scanf("%lf", &a);
          };
 
@@ -33,6 +34,7 @@ int main()
      while (b != b)
          {
           printf("\nThere are some problems. Try to enter coefficient b one more time: ");
+          fflush(stdin);
           scanf("%lf", &b);
          };
 
