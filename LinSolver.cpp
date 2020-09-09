@@ -15,9 +15,7 @@ int main()
      printf("Welcome to linear equation solver!\n");
      printf("Made by Ivan Gainullin, 2020\n\n");
 
-     Test();
-
-     printf("Enter coefficient a: ");
+     printf("\nEnter coefficient a: ");
      double a;
      scanf("%lf", &a);
 
@@ -33,7 +31,7 @@ int main()
                     break;
           case 1:   printf("\nSolution is x = %lf", -b/a);
                     break;
-          case Inf: printf("\nAn infinite number of solutions");
+          default:  printf("\nAn infinite number of solutions");
                     break;
          }
 
@@ -45,21 +43,21 @@ int main()
     int Lin_Solver(double a, double b)
         {
          if (fabs(a) < EPS)
-          {
-           if (fabs(b) < EPS)
-               {
-                return Inf;
-                }
-           else
-               {
-                return 0;
-                };
-          }
-      else
-          {
-           return 1;
-           };
-         }
+             {
+              if (fabs(b) < EPS)
+                  {
+                   return Inf;
+                  }
+              else
+                  {
+                   return 0;
+                  };
+             }
+         else
+             {
+              return 1;
+             };
+        }
 
     //-----------------------------------------------------------------------------
 
@@ -72,7 +70,7 @@ int main()
          #define DO_TEST if (res == exp) \
                              { \
                               printf("Lin_Solver Test on line %d OK\n", __LINE__); \
-                              } \
+                             } \
                          else {printf("Lin_Solver Test on line %d FAILED: res = %d, should be %d\n", __LINE__, res, exp);};
 
 
