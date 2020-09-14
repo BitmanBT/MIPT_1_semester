@@ -205,7 +205,7 @@ double GetCoeff(char Var)
          {
           printf("\nThere are some problems. Try to enter coefficient %c one more time: ", Var);
           fflush(stdin);
-          scanf("%lf", &per);
+          k = scanf("%lf", &per);
          };
      return per;
     }
