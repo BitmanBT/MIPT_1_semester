@@ -88,9 +88,21 @@ int SqSolver(double a, double b, double c, double* x1, double* x2)
          };
 
      double d = Discriminant(a, b, c);
-     *x1 = Root1(a, b, d);
-     *x2 = Root2(a, b, d);
-     return 2;
+     if (d > 0)
+         {
+          *x1 = Root1(a, b, d);
+          *x2 = Root2(a, b, d);
+          return 2;
+         }
+     else if (IsZero(d))
+         {
+          *x1 = Root1(a, b, d);
+          return 1;
+         }
+     else
+         {
+          return 0;
+         }
     }
 
 //-----------------------------------------------------------------------------
