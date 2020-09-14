@@ -8,6 +8,12 @@ const double EPS = 1e-5;
 
 int SqSolver(double a, double b, double c, double* x1, double* x2);
 
+int LinSolver(double a, double b, double* x);
+
+bool IsZero(double a);
+
+double GetCoeff(char Var);
+
 double Discriminant(double a, double b, double c);
 
 double Root1(double a, double b, double d);
@@ -28,27 +34,31 @@ int main()
    {
     printf("Welcome to the Quadratic Equation Solver!\n"
            "Made by Ivan Gainullin, 2020\n");
-    printf("Enter coefficients a, b and c\n");
-    double a, b, c, x1, x2;
+
     Test_SqSolver();
     Test_Discriminant();
     Test_Root1();
     Test_Root2();
-    scanf("%lf %lf %lf", &a, &b, &c);
-    int NumRoots = SqSolver(a, b, c,&x1,&x2);
+
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+    a = GetCoeff('a');
+    b = GetCoeff('b');
+    c = GetCoeff('c');
+
+    int NumRoots = SqSolver(a, b, c, &x1, &x2);
+
     switch (NumRoots){
-                      case 0: printf("No Roots\n");
-                              break;
-                      case 1: printf("One root, x = %lf\n", x1);
-                              break;
-                      case 2: printf("Two Roots, x1 = %lf, x2 = %lf\n", x1, x2);
-                              break;
-                      default:printf("All numbers are roots\n");
-                              break;
+                      case 0:        printf("No Roots\n");
+                                     break;
+                      case 1:        printf("One root, x = %lf\n", x1);
+                                     break;
+                      case 2:        printf("Two Roots, x1 = %lf, x2 = %lf\n", x1, x2);
+                                     break;
+                      case Infinite: printf("All numbers are roots\n");
+                                     break;
+                      default:       printf("Unknown error: NumRoots = %d", NumRoots);
+                                     break;
                      }
-    printf("Press random number\n");
-    int random;
-    scanf("%d", &random);
     return 0;
    }
 
@@ -64,40 +74,37 @@ int main()
   \return Number of roots
 */
 
-int SqSolver(double a, double b, double c, double* x1, double* x2) {
-    assert(x1);
-    assert(x2);
+int SqSolver(double a, double b, double c, double* x1, double* x2)
+    {
+     assert(x1 != x2);
 
-    if (fabs(a) < EPS) {
-                        if (fabs(b) < EPS) {
-                                            if (fabs(c) < EPS) {
-                                                                return Infinite;
-                                                               }
-                                            else { //a = 0 and b = 0 and c != 0
-                                                  return 0;
-                                                 };
-                                           }
-                        else { //a = 0 and b != 0
-                              *x1 = -c/b;
-                              return 1;
-                             };
-                       }
-    else { //a != 0
-          double d = Discriminant(a, b, c);
-          if (d < 0) {
-                      return 0;
-                     }
-          else if (fabs(d) < EPS) {
-                                   *x1 = Root1(a, b, d);
-                                   return 1;
-                                  }
-          else { //d > 0
-                *x1 = Root1(a, b, d);
-                *x2 = Root2(a, b, d);
-                return 2;
-               }
-         }
+     if (IsZero(a))
+         return LinSolver (b, c, x1);
+     if (IsZero(c))
+         {
+          *x1 = 0;
+          return 1 + LinSolver(a, b, x2);
+         };
+
+     double d = Discriminant(a, b, c);
+     *x1 = Root1(a, b, d);
+     *x2 = Root2(a, b, d);
     }
+
+//-----------------------------------------------------------------------------
+
+int LinSolver(double a, double b, double* x)
+        {
+         if (IsZero(a))
+             {
+              return 0;
+             }
+         else
+             {
+              *x = -b/a;
+              return 1;
+             }
+        }
 
 //-----------------------------------------------------------------------------
 
@@ -143,8 +150,36 @@ double Root1(double a, double b, double d)
 
 double Root2(double a, double b, double d)
     {
-     double x2 = (-b - sqrt(d))/2/a;
+     double x2 = (-b + sqrt(d))/2/a;
      return x2;
+    }
+
+//-----------------------------------------------------------------------------
+
+double GetCoeff(char Var)
+    {
+     int k = 0;
+     double per;
+     printf("Enter coefficient %s: ", Var);
+     k = scanf("                      %lf", &per);
+     while (k == 0)
+         {
+          printf("\nThere are some problems. Try to enter coefficient %s one more time: ", Var);
+          fflush(stdin);
+          scanf("%lf", &per);
+         };
+     return per;
+    }
+
+//-----------------------------------------------------------------------------
+
+bool IsZero(double a)
+    {
+     if (fabs(a) < EPS)
+         {
+          return 1;
+         }
+     else return 0;
     }
 
 //-----------------------------------------------------------------------------
