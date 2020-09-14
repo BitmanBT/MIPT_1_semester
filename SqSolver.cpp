@@ -122,6 +122,7 @@ int LinSolver(double a, double b, double* x)
              }
          else
              {
+              *x = -b/a;
               return 1;
              };
         }
