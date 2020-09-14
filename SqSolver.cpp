@@ -22,6 +22,8 @@ double Root2(double a, double b, double d);
 
 void Test_SqSolver();
 
+void Test_LinSolver();
+
 void Test_Discriminant();
 
 void Test_Root1();
@@ -38,6 +40,7 @@ int main()
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
 
     Test_SqSolver();
+    Test_LinSolver();
     Test_Discriminant();
     Test_Root1();
     Test_Root2();
@@ -106,6 +109,15 @@ int SqSolver(double a, double b, double c, double* x1, double* x2)
     }
 
 //-----------------------------------------------------------------------------
+
+/*!
+  Function that solves a linear equation
+  \param[in] a Linear binominal coefficient
+  \param[in] b Linear binominal coefficient
+  \param[in] c Linear binominal coefficient
+  \param[out] x Pointer to a variable to store the root
+  \return Number of roots
+*/
 
 int LinSolver(double a, double b, double* x)
         {
@@ -177,15 +189,21 @@ double Root2(double a, double b, double d)
 
 //-----------------------------------------------------------------------------
 
+/*!
+  A function that takes variable values
+  \param[in] Var The name of the variable
+  \return Variable value
+*/
+
 double GetCoeff(char Var)
     {
      int k = 0;
      double per;
-     printf("Enter coefficient %s: ", Var);
+     printf("Enter coefficient %c: ", Var);
      k = scanf("                      %lf", &per);
      while (k == 0)
          {
-          printf("\nThere are some problems. Try to enter coefficient %s one more time: ", Var);
+          printf("\nThere are some problems. Try to enter coefficient %c one more time: ", Var);
           fflush(stdin);
           scanf("%lf", &per);
          };
@@ -193,6 +211,12 @@ double GetCoeff(char Var)
     }
 
 //-----------------------------------------------------------------------------
+
+/*!
+  A function that checks if the number is 0 (or very close to 0)
+  \param[in] Number
+  \return 1 if '0' (or close), 0 if not
+*/
 
 bool IsZero(double a)
     {
@@ -239,6 +263,73 @@ void Test_SqSolver()
      val_a = 4, val_b = 7, val_c = 2;
      res = SqSolver(val_a, val_b, val_c, &x1, &x2);
      exp = 2;
+
+     DO_TEST
+
+     #undef DO_TEST
+    }
+
+//-----------------------------------------------------------------------------
+
+void Test_LinSolver()
+    {
+     double x;
+
+     double val_a = 0, val_b = 0;
+     int res = LinSolver(val_a, val_b, &x);
+     int exp = Infinite;
+
+     #define DO_TEST if (res == exp) \
+                         { \
+                          printf("LinSolver Test on line %d OK\n", __LINE__); \
+                         } \
+                     else \
+                         { \
+                          printf("LinSolver Test on line %d FAILED: res = %d, should be %d\n", __LINE__, res, exp); \
+                         };
+
+
+     DO_TEST
+
+     val_a = 0, val_b = 1;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 0;
+
+     DO_TEST
+
+     val_a = 0, val_b = 2;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 0;
+
+     DO_TEST
+
+     val_a = 1, val_b = 1;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 1;
+
+     DO_TEST
+
+     val_a = 2, val_b = 3;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 1;
+
+     DO_TEST
+
+     val_a = 3, val_b = 2;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 1;
+
+     DO_TEST
+
+     val_a = 5, val_b = 4;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 1;
+
+     DO_TEST
+
+     val_a = 4, val_b = 5;
+     res = LinSolver(val_a, val_b, &x);
+     exp = 1;
 
      DO_TEST
 
