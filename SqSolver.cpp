@@ -4,7 +4,7 @@
 
 const int Infinite = 3;
 
-const double EPS = 1e-5;
+const double EPS = 1e-6;
 
 int SqSolver(double a, double b, double c, double* x1, double* x2);
 
@@ -35,12 +35,13 @@ int main()
     printf("Welcome to the Quadratic Equation Solver!\n"
            "Made by Ivan Gainullin, 2020\n");
 
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+
     Test_SqSolver();
     Test_Discriminant();
     Test_Root1();
     Test_Root2();
 
-    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
     a = GetCoeff('a');
     b = GetCoeff('b');
     c = GetCoeff('c');
@@ -79,7 +80,7 @@ int SqSolver(double a, double b, double c, double* x1, double* x2)
      assert(x1 != x2);
 
      if (IsZero(a))
-         return LinSolver (b, c, x1);
+         return LinSolver(b, c, x1);
      if (IsZero(c))
          {
           *x1 = 0;
@@ -89,6 +90,7 @@ int SqSolver(double a, double b, double c, double* x1, double* x2)
      double d = Discriminant(a, b, c);
      *x1 = Root1(a, b, d);
      *x2 = Root2(a, b, d);
+     return 2;
     }
 
 //-----------------------------------------------------------------------------
@@ -97,13 +99,19 @@ int LinSolver(double a, double b, double* x)
         {
          if (IsZero(a))
              {
-              return 0;
+              if (IsZero(b))
+                  {
+                   return Infinite;
+                  }
+              else
+                  {
+                   return 0;
+                  };
              }
          else
              {
-              *x = -b/a;
               return 1;
-             }
+             };
         }
 
 //-----------------------------------------------------------------------------
@@ -150,7 +158,7 @@ double Root1(double a, double b, double d)
 
 double Root2(double a, double b, double d)
     {
-     double x2 = (-b + sqrt(d))/2/a;
+     double x2 = (-b - sqrt(d))/2/a;
      return x2;
     }
 
