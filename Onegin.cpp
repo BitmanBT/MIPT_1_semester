@@ -33,7 +33,6 @@ char** Read_File_And_Create_Array_Of_Pointers()
 
      unsigned int number_of_strings = count_strings(array_of_strings);
      char** Array_Of_Pointers = Create_Array_Of_Pointers(array_of_strings, number_of_strings);
-     printf(*Array_Of_Pointers);
 
      assert(number_of_strings);
      assert(Array_Of_Pointers);
@@ -92,21 +91,19 @@ char** Create_Array_Of_Pointers(char* array_of_strings, unsigned int number_of_s
 
      char** Array_Of_Pointers = (char**)  calloc(number_of_strings + 1, sizeof(*Array_Of_Pointers));
 
-     int i = 0;
+     int i        = 0,
+         position = 0;
+
+     Array_Of_Pointers[position] = &array_of_strings[i];
 
      while (array_of_strings[i] != '\0')
          {
+          i++;
           if (array_of_strings[i] == '\n')
               {
-               Array_Of_Pointers[i] = '\0';
-              }
-          else
-              {
-               char* for_adress = &array_of_strings[i];
-               Array_Of_Pointers[i] = &for_adress;
+               position++;
+               Array_Of_Pointers[position] = &array_of_strings[i];
               };
-
-          i++;
          };
 
      Array_Of_Pointers[i] = '\0';
