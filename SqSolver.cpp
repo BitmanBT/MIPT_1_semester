@@ -10,9 +10,9 @@ int SqSolver(double a, double b, double c, double* x1, double* x2);
 
 int LinSolver(double a, double b, double* x);
 
-bool IsZero(double a);
+bool IfNull(double a);
 
-double GetCoeff(char Var);
+double GetCoeff(const char* Var);
 
 double Discriminant(double a, double b, double c);
 
@@ -30,6 +30,8 @@ void Test_Root1();
 
 void Test_Root2();
 
+void Test_IfNull();
+
 //-----------------------------------------------------------------------------
 
 int main()
@@ -37,29 +39,35 @@ int main()
     printf("Welcome to the Quadratic Equation Solver!\n"
            "Made by Ivan Gainullin, 2020\n");
 
-    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
-
     Test_SqSolver();
     Test_LinSolver();
     Test_Discriminant();
     Test_Root1();
     Test_Root2();
+    Test_IfNull();
 
-    a = GetCoeff('a');
-    b = GetCoeff('b');
-    c = GetCoeff('c');
+    double a = GetCoeff("aa");
+    double b = GetCoeff("bb");
+    double c = GetCoeff("cc");
+
+    double x1 = NAN,
+           x2 = NAN;
 
     int NumRoots = SqSolver(a, b, c, &x1, &x2);
 
     switch (NumRoots){
                       case 0:        printf("No Roots\n");
                                      break;
+
                       case 1:        printf("One root, x = %lf\n", x1);
                                      break;
+
                       case 2:        printf("Two Roots, x1 = %lf, x2 = %lf\n", x1, x2);
                                      break;
+
                       case Infinite: printf("All numbers are roots\n");
                                      break;
+
                       default:       printf("Unknown error: NumRoots = %d", NumRoots);
                                      break;
                      }
@@ -81,23 +89,32 @@ int main()
 int SqSolver(double a, double b, double c, double* x1, double* x2)
     {
      assert(x1 != x2);
+     assert(a == a);
+     assert(b == b);
+     assert(c == c);
 
-     if (IsZero(a))
+
+     if (IfNull(a))
          return LinSolver(b, c, x1);
-     if (IsZero(c))
+
+
+     if (IfNull(c))
          {
           *x1 = 0;
           return 1 + LinSolver(a, b, x2);
          };
 
+
      double d = Discriminant(a, b, c);
+
+
      if (d > 0)
          {
           *x1 = Root1(a, b, d);
           *x2 = Root2(a, b, d);
           return 2;
          }
-     else if (IsZero(d))
+     else if (IfNull(d))
          {
           *x1 = Root1(a, b, d);
           return 1;
@@ -121,9 +138,9 @@ int SqSolver(double a, double b, double c, double* x1, double* x2)
 
 int LinSolver(double a, double b, double* x)
         {
-         if (IsZero(a))
+         if (IfNull(a))
              {
-              if (IsZero(b))
+              if (IfNull(b))
                   {
                    return Infinite;
                   }
@@ -195,19 +212,24 @@ double Root2(double a, double b, double d)
   \return Variable value
 */
 
-double GetCoeff(char Var)
+double GetCoeff(const char* Var)
     {
-     int k = 0;
-     double per;
-     printf("Enter coefficient %c: ", Var);
-     k = scanf("                      %lf", &per);
-     while (k == 0)
+     int ScanVar = 0;
+
+     double res = NAN;
+
+     printf("Enter coefficient %s: ", Var);
+
+     ScanVar = scanf("                      %lf", &res);
+
+     while (ScanVar == 0)
          {
-          printf("\nThere are some problems. Try to enter coefficient %c one more time: ", Var);
+          printf("\nThere are some problems. Try to enter coefficient %s one more time: ", Var);
           fflush(stdin);
-          k = scanf("%lf", &per);
+          ScanVar = scanf("%lf", &res);
          };
-     return per;
+
+     return res;
     }
 
 //-----------------------------------------------------------------------------
@@ -218,7 +240,7 @@ double GetCoeff(char Var)
   \return 1 if '0' (or close), 0 if not
 */
 
-bool IsZero(double a)
+bool IfNull(double a)
     {
      if (fabs(a) < EPS)
          {
@@ -273,7 +295,7 @@ void Test_SqSolver()
 
 void Test_LinSolver()
     {
-     double x;
+     double x = NAN;
 
      double val_a = 0, val_b = 0;
      int res = LinSolver(val_a, val_b, &x);
@@ -388,6 +410,37 @@ void Test_Root2()
          {
           printf("Root2 Test on line %d FAILED: Root2(%g, %g, %g) == %g, should be %g\n", __LINE__, val_a, val_b, val_d, res, exp);
          }
+    }
+
+//-----------------------------------------------------------------------------
+
+void Test_IfNull()
+    {
+     double a = 0;
+     bool exp = 1;
+     bool res = IfNull(a);
+
+     if (res == exp)
+         {
+          printf("IfNull Test on line %d OK\n", __LINE__);
+         }
+     else
+         {
+          printf("IfNull Test on line %d FAILED: res = 0, should be 1\n", __LINE__);
+         };
+
+     a = 5;
+     exp = 0;
+     res = IfNull(a);
+
+     if (res == exp)
+         {
+          printf("IfNull Test on line %d OK\n", __LINE__);
+         }
+     else
+         {
+          printf("IfNull Test on line %d FAILED: res = 1, should be 0\n", __LINE__);
+         };
     }
 
 

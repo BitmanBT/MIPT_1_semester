@@ -38,7 +38,8 @@ int main()
           scanf("%lf", &b);
          };
 
-     int num_root = Lin_Solver(a, b);
+     double x = NAN;
+     int num_root = Lin_Solver(a, b, &x);
 
      switch (num_root)
          {
@@ -57,32 +58,19 @@ int main()
 
     //-----------------------------------------------------------------------------
 
-    int Lin_Solver(double a, double b)
+    int Lin_Solver (double a, double b, double* x)
         {
-         bool index_1 = std::isfinite(a);
-         bool index_2 = std::isfinite(b);
-         if ((index_1 == 1) && (index_2 == 1))
-             {
-              if (fabs(a) < EPS)
-                  {
-                   if (fabs(b) < EPS)
-                       {
-                        return Inf;
-                       }
-                   else
-                       {
-                        return 0;
-                       };
-                  }
-              else
-                  {
-                   return 1;
-                  };
-             }
-         else
-             {
-              return -1;
-             };
+        printf ("Lin_Solver a = %lg, b = %lg\n", a, b);
+
+        if (!std::isfinite (a)) return -1;
+        if (!std::isfinite (b)) return -1;
+
+        if (IsZero (a) &&  IsZero (b)) return Inf;
+        if (IsZero (a) && !IsZero (b)) return 0;
+
+        *x = -b/a;
+
+        return 1;
         }
 
     //-----------------------------------------------------------------------------
