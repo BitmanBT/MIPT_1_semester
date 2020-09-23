@@ -31,6 +31,9 @@ int main()
      qsort(Array_Of_Pointers, number_of_strings, sizeof(*Array_Of_Pointers), Compile_1);
      Write_File(Array_Of_Pointers, number_of_strings);
 
+     qsort(Array_Of_Pointers, number_of_strings, sizeof(*Array_Of_Pointers), Compile_2);
+     Write_File(Array_Of_Pointers, number_of_strings);
+
      return 0;
     }
 
@@ -116,8 +119,6 @@ char* * Create_Array_Of_Pointers(char* array_of_strings, unsigned int number_of_
                Array_Of_Pointers[position] = &array_of_strings[i];
               };
          };
-
-     Array_Of_Pointers[i] = '\0';
 
      return Array_Of_Pointers;
     }
