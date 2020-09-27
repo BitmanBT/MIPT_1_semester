@@ -3,16 +3,16 @@
 int main()
     {
 	 size_t number_of_strings = 0;
-	
+
 	 char** Array_Of_Pointers = Read_File_And_Create_Array_Of_Pointers(&number_of_strings);
 
-     number_of_strings = Count_Strings(Array_Of_Pointers[0]); //pointer to the beginning of the array_of_strings
+	 Put_Zeros(Array_Of_Pointers, number_of_strings);
 
-     qsort(Array_Of_Pointers, number_of_strings, sizeof(*Array_Of_Pointers), Compile_1);
-     Write_File(Array_Of_Pointers, number_of_strings);
+     //qsort(Array_Of_Pointers, number_of_strings, sizeof(char*), Compile_1);
+     //Write_File(Array_Of_Pointers, number_of_strings);
 
-     qsort(Array_Of_Pointers, number_of_strings, sizeof(*Array_Of_Pointers), Compile_2);
-     Write_File(Array_Of_Pointers, number_of_strings);
+     //qsort(Array_Of_Pointers, number_of_strings, sizeof(*Array_Of_Pointers), Compile_2);
+     //Write_File(Array_Of_Pointers, number_of_strings);
 
      return 0;
     }
@@ -68,7 +68,9 @@ size_t Count_Strings(char* array_of_strings)
 	 for (int i = 0; array_of_strings[i] != '\0'; i++)
 	     {
 		  if (array_of_strings[i] == '\n')
-		      number_of_strings++;
+		      {
+		       number_of_strings++;
+              };
 	     };
 
      return number_of_strings;
@@ -113,26 +115,39 @@ void Write_File(char** Array_Of_Pointers, size_t number_of_strings)
      fclose(output_file);
     }
 
+void Put_Zeros(char** Array_Of_Pointers, size_t number_of_strings)
+    {
+     assert(Array_Of_Pointers);
+     assert(number_of_strings);
+
+     for (int i = 0; i < number_of_strings; i++)
+         {
+          char* j;
+          for (j = Array_Of_Pointers[i]; *j != '\n'; j = j + sizeof(char*));
+          *j = '\0';
+         };
+    }
+
 int Compile_1(const void* str_1, const void* str_2)
     {
     //TODO Почитай про strcmp, чтобы понять суть компаратора
 	 assert(str_1);
 	 assert(str_2);
-	 return strcmp((const char*) str_1, (const char*) str_2);
+	 return strcmp(*(const char**) str_1, *(const char**) str_2);
     }
 
 int Compile_2(const void* str_1, const void* str_2)
     {
 	 assert(str_1);
 	 assert(str_2);
-	
+
 	 char* string_1 = *(char**) str_1;
      char* string_2 = *(char**) str_2;
 
 
      //TODO Разобраться с работой функции (некорректная работа и неэффективно)
-     string_1 = No_Spaces(&string_1);
-     string_2 = No_Spaces(&string_2);
+     //string_1 = No_Spaces(&string_1);
+     //string_2 = No_Spaces(&string_2);
 
      //TODO
      for (;;)

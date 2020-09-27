@@ -14,9 +14,11 @@ size_t Count_Length(FILE* input_file);
 
 size_t Count_Strings(char* array_of_strings);
 
-char** Create_Array_Of_Pointers(char* array_of_strings, unsigned int number_of_strings);
+char** Create_Array_Of_Pointers(char* array_of_strings, size_t number_of_strings);
 
-void Write_File(char** Array_Of_Pointers, unsigned int number_of_strings);
+void Write_File(char** Array_Of_Pointers, size_t number_of_strings);
+
+void Put_Zeros(char** Array_Of_Pointers, size_t number_of_strings);
 
 int Compile_1(const void* str_1, const void* str_2);
 
