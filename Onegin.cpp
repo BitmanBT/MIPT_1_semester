@@ -1,16 +1,6 @@
-// ToDo: Скобочки
-// ToDo: Передача имени файла как аргумента командной строки
-// ToDo: Проверки ошибок программиста с assert-ом
-// ToDo: Проверки ошибок окружения и ошибок пользователя с printf-ом
 #include "That's for Onegin.h"
 
 //-----------------------------------------------------------------------------
-
-// onegin СтихиХармса.txt
-
-// argc = 2
-// argv[0] = "onegin"
-// argv[1] = "СтихиХармса.txt"
 
 int main()
     {
@@ -47,11 +37,7 @@ int main()
 char** Read_File_And_Create_Array_Of_Pointers(size_t* number_of_strings)
     {
      FILE* input_file = fopen("Onegin.txt", "r");
-     if (input_file == NULL)
-        {
-         printf("[Input error] Unable to open file \"%s\"\n", "ToDo!!!");
-         exit(EXIT_FAILURE);
-        }
+     assert(input_file);
 
      char* array_of_strings = Read_File(input_file);
      assert(array_of_strings);
@@ -144,11 +130,7 @@ char** Create_Array_Of_Pointers(char* array_of_strings, size_t number_of_strings
      assert(array_of_strings);
 
      char** array_of_pointers = (char**) calloc(number_of_strings + 1, sizeof(*array_of_pointers));
-     if (array_of_pointers == NULL)
-        {
-         printf("[Error] Unable to allocate memory\n");
-         exit(EXIT_FAILURE);
-        }
+     assert(array_of_pointers);
 
      int num_of_element = 0;
      int position = 0;
